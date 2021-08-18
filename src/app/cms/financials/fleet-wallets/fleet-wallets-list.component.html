@@ -1,0 +1,50 @@
+<div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+    <button nz-button nz-dropdown [nzDropdownMenu]="menuExport">
+        <i nz-icon nzType="export"></i>
+        Export
+        <i nz-icon nzType="down"></i>
+    </button>
+    <nz-dropdown-menu #menuExport="nzDropdownMenu">
+        <ul nz-menu>
+            <li nz-menu-item (click)="exportTo('csv')">CSV</li>
+        </ul>
+    </nz-dropdown-menu>
+</div>
+<nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="listOfData" [nzTotal]="total"
+    [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()" [nzShowTotal]="true"
+    (nzPageSizeChange)="searchData(true)" nzBordered>
+    <thead (nzSortChange)="sort($event)">
+        <tr>
+            <th>Fleet</th>
+            <th nzShowSort nzSortKey="amount" nzCustomFilter>Amount
+                <nz-filter-trigger [nzActive]="amountRange[0] != null" [nzDropdownMenu]="filteramount">
+                    <i nz-icon nzType="search"></i>
+                </nz-filter-trigger>
+            </th>
+            <th nzShowSort nzSortKey="currency" nzShowFilter [nzFilters]="currencies" [nzFilterMultiple]="false"
+                (nzFilterChange)="filterCurrencyChange($event)">Currency</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of ajaxTable.data">
+            <td>{{ data.fleet.name }}</td>
+            <td>{{ data.amount | currency: data.currency }}</td>
+            <td>{{data.currency}}</td>
+            <td>
+                <a *ngIf="data.fleet != null" [routerLink]="'../../../management/fleets/view/' + data.fleet.id">View Fleet</a>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<nz-dropdown-menu #filteramount="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input nz-input type="number" placeholder="Min" [(ngModel)]="amountRange[0]">
+            <input nz-input type="number" placeholder="Max" [(ngModel)]="amountRange[1]">
+            <button nz-button nzSize="small" nzType="primary" (click)="filterAmount(amountRange)"
+                class="search-button">Search</button>
+            <button nz-button nzSize="small" (click)="filterAmount(null)">Reset</button>
+        </div>
+    </div>
+</nz-dropdown-menu>

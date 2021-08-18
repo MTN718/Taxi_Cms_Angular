@@ -1,0 +1,31 @@
+<div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+  <!--<button nz-button nzType="primary"><i nz-icon nzType="plus"></i>Add</button>-->
+</div>
+<nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="listOfData" [nzLoading]="loading"
+  [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)" nzBordered>
+  <thead (nzSortChange)="sort($event)">
+    <tr>
+      <th nzShowSort nzSortKey="reviewTimestamp">
+        Date & Time
+      </th>
+      <th nzShowSort nzSortKey="score">
+        Score
+      </th>
+      <th>
+        Review
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{ data.reviewTimestamp | date: "short" }}</td>
+      <td>{{ data.score }}%</td>
+      <td>{{ data.review }}</td>
+      <td>
+        <a *ngIf="data.request != null" [routerLink]="'../../../../requests/view/' + data.request.id">View Request</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

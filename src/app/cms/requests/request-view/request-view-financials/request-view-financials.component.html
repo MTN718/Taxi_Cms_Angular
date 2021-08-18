@@ -1,0 +1,79 @@
+
+<br>
+<nz-table #basicTable2 [nzData]="riderTransactions" [nzFrontPagination]='false' nzTitle="Rider" nzBordered>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Amount</th>
+      <th>Type</th>
+      <th>Gateway</th>
+      <th>Document Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable2.data">
+      <td>{{data.transactionTime | date: 'short'}}</td>
+      <td>{{data.amount | currency: data.currency}}</td>
+      <td>{{data.transactionType}}</td>
+      <td>{{data.paymentGateway?.title}}</td>
+      <td>{{data.documentNumber}}</td>
+    </tr>
+  </tbody>
+</nz-table>
+<br>
+<nz-table #basicTable [nzData]="driverTransactions" [nzFrontPagination]='false' nzTitle="Driver" nzBordered>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Document Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.transactionTime | date: 'short' }}</td>
+        <td>{{data.amount | currency: data.currency}}</td>
+        <td>{{data.transactionType}}</td>
+        <td>{{data.documentNumber}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <br>
+  <nz-table #basicTable3 [nzData]="adminTransactions" [nzFrontPagination]='false' nzTitle="Admin" nzBordered>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Document Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable3.data">
+        <td>{{data.transactionTime | date: 'short'}}</td>
+        <td>{{data.amount | currency: data.currency}}</td>
+        <td>{{data.transactionType}}</td>
+        <td>{{data.documentNumber}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <br>
+  <nz-table *ngIf="fleetTransactions.length > 0" #basicTable4 [nzData]="fleetTransactions" [nzFrontPagination]='false' nzTitle="Fleet" nzBordered>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Document Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable4.data">
+        <td>{{data.transactionTime | date: 'short'}}</td>
+        <td>{{data.amount | currency: data.currency}}</td>
+        <td>{{data.transactionType}}</td>
+        <td>{{data.documentNumber}}</td>
+      </tr>
+    </tbody>
+  </nz-table>

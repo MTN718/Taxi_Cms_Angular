@@ -1,0 +1,66 @@
+<nz-card>
+<nz-page-header>
+  <nz-page-header-title
+    ><nz-avatar nzIcon="user" [nzSrc]="environment.root + item.media?.address"></nz-avatar>{{ item.firstName }}
+    {{ item.lastName }}</nz-page-header-title
+  >
+  <nz-page-header-tags *ngIf="item.id != null">
+    <nz-tag [nzColor]="tagColor.rider(item.status)">{{ item.status }}</nz-tag>
+  </nz-page-header-tags>
+  <nz-page-header-extra *ngIf="item.id != null">
+    <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
+      Change Status
+      <i nz-icon nzType="down"></i>
+    </button>
+    <nz-dropdown-menu #menu4="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item *ngIf="item.status == 'enabled'" (click)="changeStatus('blocked')">Blocked</li>
+        <li nz-menu-item *ngIf="item.status == 'blocked'" (click)="changeStatus('enabled')">Enabled</li>
+      </ul>
+    </nz-dropdown-menu>
+  </nz-page-header-extra>
+  <nz-page-header-content *ngIf="item.id != null">
+    <div class="content">
+      <div class="main">
+        <nz-descriptions [nzColumn]="2">
+          <nz-descriptions-item nzTitle="Mobile Number" [nzSpan]="1">{{
+            item.mobileNumber != null ? (item.mobileNumber | phone) : '-'
+          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Registered On" [nzSpan]="1">{{
+            item.registrationTimestamp | date: "short"
+          }}</nz-descriptions-item>
+        </nz-descriptions>
+      </div>
+      <div class="extra">
+        <div>
+          <nz-statistic
+            nzTitle="Credit"
+            [nzValue]="topWallet == null ? '-' : (topWallet.amount | currency: topWallet?.currency)"
+            style="margin: 0 32px"
+          ></nz-statistic>
+        </div>
+      </div>
+    </div>
+  </nz-page-header-content>
+  <nz-page-header-footer>
+    <nz-tabset nzLinkRouter>
+      <nz-tab>
+        <a nz-tab-link routerLink="details">Details</a>
+        <app-rider-view-info></app-rider-view-info>
+      </nz-tab>
+      <nz-tab *ngIf="item.id != null">
+        <a nz-tab-link routerLink="financials">Financials</a>
+        <app-rider-view-financials></app-rider-view-financials>
+      </nz-tab>
+      <nz-tab *ngIf="item.id != null">
+        <a nz-tab-link routerLink="requests">Requests</a>
+        <app-rider-view-requests></app-rider-view-requests>
+      </nz-tab>
+      <nz-tab *ngIf="item.id != null">
+        <a nz-tab-link routerLink="addresses">Addresses</a>
+        <app-rider-view-addresses></app-rider-view-addresses>
+      </nz-tab>
+    </nz-tabset>
+  </nz-page-header-footer>
+</nz-page-header>
+</nz-card>

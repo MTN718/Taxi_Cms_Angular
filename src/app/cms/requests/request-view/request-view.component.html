@@ -1,0 +1,49 @@
+<nz-card>
+  <nz-page-header>
+    <nz-page-header-title>Request #{{item.id}}</nz-page-header-title>
+    <nz-page-header-tags>
+      <nz-tag [nzColor]="tagColor.request(item.status)">{{item.status}}</nz-tag>
+    </nz-page-header-tags>
+    <nz-page-header-extra>
+    </nz-page-header-extra>
+    <nz-page-header-content>
+      <div class="content">
+        <div class="main">
+          <nz-descriptions [nzColumn]="2">
+            <nz-descriptions-item nzTitle="Request Time" [nzSpan]="1">
+              {{item.requestTimestamp != null ? (item.requestTimestamp | date: 'short') : '-'}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Service" [nzSpan]="1">{{item.service?.title || '-'}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Locations" [nzSpan]="2">{{item.addresses.join(' -> ')}}
+            </nz-descriptions-item>
+          </nz-descriptions>
+        </div>
+        <div class="extra">
+          <div>
+            <nz-statistic nzTitle="Cost" [nzValue]="item.costAfterCoupon | currency: item.currency"
+              style="margin: 0 32px"></nz-statistic>
+          </div>
+        </div>
+      </div>
+    </nz-page-header-content>
+    <nz-page-header-footer>
+      <nz-tabset nzLinkRouter>
+        <nz-tab>
+          <a nz-tab-link routerLink="info">Details</a>
+          <app-request-view-info></app-request-view-info>
+        </nz-tab>
+        <nz-tab>
+          <a nz-tab-link routerLink="financials">Financials</a>
+          <app-request-view-financials></app-request-view-financials>
+        </nz-tab>
+        <nz-tab>
+          <a nz-tab-link routerLink="chats">Chats</a>
+          <app-request-view-chats></app-request-view-chats>
+        </nz-tab>
+        <nz-tab>
+          <a nz-tab-link routerLink="complaints">Complaints</a>
+          <app-request-view-complaints></app-request-view-complaints>
+        </nz-tab>
+      </nz-tabset>
+    </nz-page-header-footer>
+  </nz-page-header>
+</nz-card>

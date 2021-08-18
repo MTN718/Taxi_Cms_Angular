@@ -1,0 +1,13 @@
+<nz-empty *ngIf="chats == null || chats.length == 0" class="empty-state"></nz-empty>
+<nz-comment [nzAuthor]="chat.sentBy == 'r' ? (rider.firstName + ' ' + rider.lastName) : (driver?.firstName + ' ' + driver?.lastName)" [nzDatetime]="chat.sentAt | date: 'short'" *ngFor="let chat of chats">
+    <nz-avatar
+      nz-comment-avatar
+      [nzIcon]="chat.sentBy == 'r' ? 'user' : 'car'"
+      nzSrc=""
+    ></nz-avatar>
+    <nz-comment-content>
+      <p>
+        {{chat.content}}
+      </p>
+    </nz-comment-content>
+  </nz-comment>

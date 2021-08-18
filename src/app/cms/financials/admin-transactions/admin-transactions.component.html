@@ -1,0 +1,69 @@
+<div>
+    <div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+      <button nz-button nz-dropdown [nzDropdownMenu]="menuExport">
+        <i nz-icon nzType="export"></i>
+        Export
+        <i nz-icon nzType="down"></i>
+      </button>
+      <nz-dropdown-menu #menuExport="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="exportTo('csv')">CSV</li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+      <nz-table
+        #ajaxTable
+        nzShowSizeChanger
+        nzTitle="Transactions"
+        [nzFrontPagination]="false"
+        [nzData]="listOfData"
+        [nzTotal]="total"
+        [(nzPageIndex)]="pageIndex"
+        [(nzPageSize)]="pageSize"
+        (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)"
+        nzBordered
+      >
+        <thead (nzSortChange)="sort($event)">
+          <tr>
+            <th nzShowSort nzSortKey="transactionTime">Date & Time</th>
+            <th nzShowSort nzSortKey="transactionType" nzShowFilter [nzFilters]="types" (nzFilterChange)="filterStatusChange($event)">Transaction Type</th>
+            <th>Amount</th>
+            <th>Document Number</th>
+            <th>Details</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data">
+            <td>{{ data.transactionTime | date: "short" }}</td>
+            <td>{{ data.transactionType }}</td>
+            <td>{{ data.amount | currency: data.currency }}</td>
+            <td>{{ data.documentNumber }}</td>
+            <td>{{ data.details }}</td>
+            <td>
+              <a *ngIf="data.operator != null" [routerLink]="'../../../operator/view/' + data.operator">View Operator</a>
+              <a *ngIf="data.request != null" [routerLink]="'../../../requests/view/' + data.request">View Request</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    <nz-table
+        #summaryTable
+        [nzData]="summary"
+        nzBordered
+        [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of summaryTable.data">
+            <td>{{ data.amount | currency: data.currency }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    
+  </div>
+  

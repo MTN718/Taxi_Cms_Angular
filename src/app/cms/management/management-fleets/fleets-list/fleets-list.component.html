@@ -1,0 +1,23 @@
+<div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+  <button nz-button nzType="primary" routerLink="new"><i nz-icon nzType="plus"></i>Add</button>
+</div>
+<nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="listOfData" [nzTotal]="total"
+  [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)" nzBordered>
+  <thead (nzSortChange)="sort($event)">
+    <tr>
+      <th>Name</th>
+      <th>Cellphone Number</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{ data.name }}</td>
+      <td>{{ data.mobileNumber | phone }}</td>
+      <td>
+        <a [routerLink]="'view/' + data.id">View</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

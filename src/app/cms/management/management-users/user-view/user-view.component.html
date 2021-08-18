@@ -1,0 +1,12 @@
+<nz-card>
+<nz-row *ngFor="let per of permissions">
+    <h4 style="width: 160px;">{{per}}:</h4>
+    <nz-checkbox-group *ngIf="permissionValues[per] != null" [ngModel]="permissionValues[per]"></nz-checkbox-group>
+    <br>
+    <br>
+</nz-row>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+    <button nz-button nzType="primary" type="submit">Save</button>
+</form>
+</nz-card>

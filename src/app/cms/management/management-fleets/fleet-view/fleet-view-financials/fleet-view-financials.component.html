@@ -1,0 +1,41 @@
+<div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+  <!--<button nz-button nzType="primary"><i nz-icon nzType="plus"></i>Add</button>-->
+</div>
+<nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="listOfData" [nzLoading]="loading"
+  [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)" nzBordered>
+  <thead (nzSortChange)="sort($event)">
+    <tr>
+      <th nzShowSort nzSortKey="transactionTime">
+        Date & Time
+      </th>
+      <th nzShowSort nzSortKey="transactionType">
+        Transaction Type
+      </th>
+      <th>
+        Amount
+      </th>
+      <th>
+        Document Number
+      </th>
+      <th>
+        Details
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{ data.transactionTime | date: "short" }}</td>
+      <td>{{ data.transactionType }}</td>
+      <td>{{ data.amount | currency: data.currency }}</td>
+      <td>{{ data.documentNumber }}</td>
+      <td>{{ data.details }}</td>
+      <td>
+        <a *ngIf="data.operator != null" routerLink="../../requests">View Operator</a>
+        <a *ngIf="data.paymentGateway != null" routerLink="../../requests">View Payment Gateway</a>
+        <a *ngIf="data.request != null" routerLink="../../requests">View Request</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

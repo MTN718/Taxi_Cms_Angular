@@ -1,0 +1,117 @@
+{
+	"branding": {
+		"menu": {
+			"header": "Ridy"
+		},
+		"footer": {
+			"address": "http://ridy.io/",
+			"prefix": "© 2018-2020",
+			"title": "Ridy.io",
+			"suffix": "All Rights reserved."
+		},
+		"page": {
+			"title": "Ridy CMS"
+		}
+	},
+	"menu": {
+		"driver": {
+			"pendingVerification": "Pending Verification",
+			"paymentRequests": "Payment Requests",
+			"all": "View All",
+			"header": "Drivers"
+		},
+		"marketing": {
+			"coupons": "Coupons",
+			"promotions": "Promotions",
+			"header": "Marketing"
+		},
+		"accounting": {
+			"admin": "Admin",
+			"fleets": "Fleets",
+			"drivers": "Drivers",
+			"riders": "Riders",
+			"header": "Accounting"
+		},
+		"riders": "Riders",
+		"requests": "Requests",
+		"complaints": "Complaints",
+		"management": {
+			"regions": "Regions",
+			"services": "Services",
+			"fleets": "Fleets",
+			"cars": "Cars",
+			"users": "Users",
+			"paymentGateways": "Payment Gateways",
+			"settings": "Settings",
+			"header": "Management"
+		}
+	},
+	"notification": {
+		"complaints": {
+			"suffix": "Complaints unreviewed"
+		},
+		"pendingDrivers": {
+			"suffix": "Drivers unverified"
+		},
+		"paymentRequests": {
+			"suffix": "Payment Requests unsettled"
+		}
+	},
+	"driver": {
+		"profile": {
+			"changeStatus": "Change Status",
+			"registeredOn": "Regitred On",
+			"lastSeenAt": "Last Seen At",
+			"rating": "Rating",
+			"timesRated": "Rate count",
+			"details": "Details",
+			"financials": "Credit Records",
+			"paymentRequests": "Payment Requests",
+			"reviews": "Reviews",
+			"documents": "Documents"
+		}
+	},
+	"enum": {
+		"driver": {
+			"status": {
+				"pendingApproval": "Pending Approval",
+				"approved": "Approved",
+				"blocked": "Blocked",
+				"softReject": "Soft Reject",
+				"hardReject": "Hard Reject",
+				"offline": "Offline",
+				"waitingDocuments": "Waiting For Documents",
+				"inService": "In Service",
+				"online": "Online"
+			}
+		}
+	},
+	"overview": {
+		"complaints": {
+			"title": "Complaints",
+			"suffix": "Unreviewed"
+		},
+		"paymentRequests": {
+			"title": "Payment Requests",
+			"suffix": "Unsettled"
+		},
+		"pendingDrivers": {
+			"title": "Pending Drivers",
+			"suffix": "Unverified"
+		},
+		"availableDrivers": {
+			"title": "Available Drivers",
+			"suffix": "Roaming"
+		},
+		"driversOnline": "Drivers Online",
+		"autoZoom": "Auto Zoom",
+		"viewDriver": "View Driver",
+		"chart": {
+			"incomeTitle": "Income",
+			"allDay": "All Day",
+			"allMonth": "All Month",
+			"allYear": "All Year",
+			"requestsTitle": "Requests"
+		}
+	}
+}

@@ -1,0 +1,41 @@
+<div>
+    <div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+      <button nz-button nzType="primary" (click)="onAdd($event)"><i nz-icon nzType="plus"></i>Add</button>
+    </div>
+    <nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      [nzFrontPagination]="false"
+      [nzData]="listOfData"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData()"
+      (nzPageSizeChange)="searchData(true)"
+      nzBordered
+    >
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th nzWidth="80%">Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data" class="editable-row">
+          <td>
+              <div class="editable-cell" *ngIf="editId !== data.id; else editTpl">
+              <div class="editable-cell-value-wrap" (click)="startEdit(data.id, $event)">
+                {{ data.title }}
+              </div>
+            </div>
+            <ng-template #editTpl>
+              <input type="text" nz-input [(ngModel)]="data.title" (keyup.enter)="onSubmitEdit(data)" />
+            </ng-template></td>
+          <td>
+            <a nz-popconfirm nzPopconfirmTitle="Are you sure?" (nzOnConfirm)="onDelete(data.id)">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  

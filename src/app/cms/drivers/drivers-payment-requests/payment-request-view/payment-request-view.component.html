@@ -1,0 +1,84 @@
+<nz-card>
+    <nz-page-header>
+        <nz-page-header-title>
+            <nz-avatar nzIcon="bank"></nz-avatar>Payment Request #{{item.id}}
+        </nz-page-header-title>
+        <nz-page-header-tags>
+            <nz-tag [nzColor]="tagColor.paymentRequest(item.status)">{{item.status}}</nz-tag>
+        </nz-page-header-tags>
+        <nz-page-header-extra>
+            <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
+                Change Status
+                <i nz-icon nzType="down"></i>
+            </button>
+            <nz-dropdown-menu #menu4="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item (click)="changeStatus('Pending')">Pending</li>
+                    <li nz-menu-item (click)="changeStatus('Paid')">Paid</li>
+                    <li nz-menu-item (click)="changeStatus('Rejected')">Rejected</li>
+                </ul>
+            </nz-dropdown-menu>
+        </nz-page-header-extra>
+        <nz-page-header-content>
+            <div class="content">
+                <div class="main">
+                    <nz-descriptions [nzColumn]="2">
+                        <nz-descriptions-item nzTitle="Request Date" [nzSpan]="1">
+                            {{item.requestTimestamp | date:'medium'}}</nz-descriptions-item>
+                        <nz-descriptions-item nzTitle="Payment Date" [nzSpan]="1">
+                            {{item.paymentTimestamp != null ? (item.paymentTimestamp | date: 'medium') : '-'}}
+                        </nz-descriptions-item>
+                    </nz-descriptions>
+                </div>
+                <div class="extra">
+                </div>
+            </div>
+        </nz-page-header-content>
+        <nz-page-header-footer>
+            <nz-descriptions nzTitle="Driver Info" nzBordered style="margin-top: 30px;;" *ngIf="item.driver != null">
+                <nz-descriptions-item nzTitle="Full name">{{item.driver.firstName }} {{item.driver.lastName}}
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Cellphone">{{item.driver.mobileNumber | phone }}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Registered at">{{
+            item.driver.registrationTimestamp != null ? (item.driver.registrationTimestamp | date: "short") : "-"
+          }}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Status">
+                    <nz-badge [nzColor]="tagColor.driver(item.driver.status)" [nzText]="item.driver.status"></nz-badge>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="Account Number">{{ item.driver.accountNumber }}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="View"><a [routerLink]="'/../drivers/all/view/' + item.driver.id">View</a>
+                </nz-descriptions-item>
+            </nz-descriptions>
+            <div class="ant-descriptions-title ng-star-inserted" style="margin-top: 20px; margin-bottom: 20px;">Wallet
+            </div>
+            <nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="item.driver.wallet" nzBordered>
+                <thead>
+                    <tr>
+                        <th nzCustomFilter>
+                            Amount
+                        </th>
+                        <th>
+                            Currency
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of ajaxTable.data">
+                        <td>{{ data.amount }}</td>
+                        <td>{{ data.currency }}</td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <div class="ant-descriptions-title ng-star-inserted" style="margin-top: 20px; margin-bottom: 20px;">Insert
+                Payout Info
+            </div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <formly-form [form]="form" [fields]="fields" [model]="formReq"></formly-form>
+                <button nz-button nzType="primary" type="submit">Save</button>
+            </form>
+        </nz-page-header-footer>
+    </nz-page-header>
+</nz-card>

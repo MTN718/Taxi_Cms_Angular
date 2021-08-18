@@ -1,0 +1,18 @@
+<nz-card>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  <google-map
+    height="400px"
+    width="100%"
+    [center]="center"
+    [zoom]="zoom"
+    (tilesloaded)="idleMap($event)">
+    <map-polygon [paths]="model.location"
+    *ngIf="mapLoaded">
+    </map-polygon>
+  </google-map>
+  <br>
+  <button nz-button nzType="primary" type="submit" [disabled]="!form.valid">Save</button>
+  <button nz-button (click)="clearMap()" style="margin: 4px;" type="button">Clear Map</button>
+</form>
+</nz-card>

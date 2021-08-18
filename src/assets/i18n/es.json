@@ -1,0 +1,117 @@
+{
+	"branding": {
+		"menu": {
+			"header": ""
+		},
+		"footer": {
+			"address": "",
+			"prefix": "",
+			"title": "",
+			"suffix": ""
+		},
+		"page": {
+			"title": ""
+		}
+	},
+	"menu": {
+		"driver": {
+			"pendingVerification": "",
+			"paymentRequests": "",
+			"all": "",
+			"header": ""
+		},
+		"marketing": {
+			"coupons": "",
+			"promotions": "",
+			"header": ""
+		},
+		"accounting": {
+			"admin": "",
+			"fleets": "",
+			"drivers": "",
+			"riders": "",
+			"header": ""
+		},
+		"riders": "",
+		"requests": "",
+		"complaints": "",
+		"management": {
+			"regions": "",
+			"services": "",
+			"fleets": "",
+			"cars": "",
+			"users": "",
+			"paymentGateways": "",
+			"settings": "",
+			"header": ""
+		}
+	},
+	"notification": {
+		"complaints": {
+			"suffix": ""
+		},
+		"pendingDrivers": {
+			"suffix": ""
+		},
+		"paymentRequests": {
+			"suffix": ""
+		}
+	},
+	"driver": {
+		"profile": {
+			"changeStatus": "",
+			"registeredOn": "",
+			"lastSeenAt": "",
+			"rating": "",
+			"timesRated": "",
+			"details": "",
+			"financials": "",
+			"paymentRequests": "",
+			"reviews": "",
+			"documents": ""
+		}
+	},
+	"enum": {
+		"driver": {
+			"status": {
+				"pendingApproval": "",
+				"approved": "",
+				"blocked": "",
+				"softReject": "",
+				"hardReject": "",
+				"offline": "",
+				"waitingDocuments": "",
+				"inService": "",
+				"online": ""
+			}
+		}
+	},
+	"overview": {
+		"complaints": {
+			"title": "",
+			"suffix": ""
+		},
+		"paymentRequests": {
+			"title": "",
+			"suffix": ""
+		},
+		"pendingDrivers": {
+			"title": "",
+			"suffix": ""
+		},
+		"availableDrivers": {
+			"title": "",
+			"suffix": ""
+		},
+		"driversOnline": "",
+		"autoZoom": "",
+		"viewDriver": "",
+		"chart": {
+			"incomeTitle": "",
+			"allDay": "",
+			"allMonth": "",
+			"allYear": "",
+			"requestsTitle": ""
+		}
+	}
+}

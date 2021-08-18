@@ -1,0 +1,43 @@
+
+<nz-row [nzGutter]="16" nzType="flex" nzJustify="space-around" nzAlign="middle">
+  <nz-col [nzSm]="24" [nzMd]="16">
+    <img [src]="mapsAddress" style="width: 100%; height: auto;">
+  </nz-col>
+  <nz-col [nzSm]="24" [nzMd]="8" style="margin-top: 8px;">
+    <nz-timeline>
+    <nz-timeline-item>Request Time {{ item.requestTimestamp | date: "short" }}</nz-timeline-item>
+    <nz-timeline-item>Expected Time {{ item.expectedTimestamp | date: "short" }}</nz-timeline-item>
+    <nz-timeline-item>Start Time {{ item.startTimestamp | date: "short" }}</nz-timeline-item>
+    <nz-timeline-item>Finish Time {{ item.finishTimestamp | date: "short" }}</nz-timeline-item>
+  </nz-timeline>
+  </nz-col>
+</nz-row>
+<nz-descriptions nzTitle="Driver Info" nzBordered style="margin-top: 30px;;" *ngIf="item.driver != null">
+    <nz-descriptions-item nzTitle="Full name">{{item.driver.firstName }} {{item.driver.lastName}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Cellphone">{{item.driver.mobileNumber | phone }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Registered at">{{
+    item.driver.registrationTimestamp != null ? (item.driver.registrationTimestamp | date: "short") : "-"
+  }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Status" [nzSpan]="2">
+        <nz-badge [nzColor]="tagColor.driver(item.driver.status)" [nzText]="item.driver.status"></nz-badge>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="View"><a [routerLink]="'/../drivers/all/view/' + item.driver.id">View</a></nz-descriptions-item>
+</nz-descriptions>
+
+<nz-descriptions nzTitle="Rider Info" nzBordered style="margin-top: 30px;;" *ngIf="item.rider != null">
+    <nz-descriptions-item nzTitle="Full name">{{item.rider.firstName }} {{item.rider.lastName}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Cellphone">{{item.rider.mobileNumber | phone }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Registered at">{{
+    item.rider.registrationTimestamp != null ? (item.rider.registrationTimestamp | date: "short") : "-"
+  }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Status" [nzSpan]="2">
+        <nz-badge [nzColor]="tagColor.rider(item.rider.status)" [nzText]="item.rider.status"></nz-badge>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="View"><a [routerLink]="'/../riders/view/' + item.rider.id">View</a></nz-descriptions-item>
+</nz-descriptions>
+
+<nz-descriptions nzTitle="Coupon" nzBordered style="margin-top: 30px;" *ngIf="item.coupon != null">
+    <nz-descriptions-item nzTitle="Title">{{item.coupon.title }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Code">{{item.coupon.code }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Expiration Time">{{ item.coupon.expirationTimestamp != null ? (item.coupon.expirationTimestamp | date: "short") : "-" }}</nz-descriptions-item>
+</nz-descriptions>

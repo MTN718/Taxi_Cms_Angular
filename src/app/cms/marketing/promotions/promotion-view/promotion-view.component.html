@@ -1,0 +1,8 @@
+<nz-card>
+  <h3>Availability Time</h3><br>
+  <nz-range-picker [(ngModel)]="dates"></nz-range-picker><br><br>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+    <button nz-button nzType="primary" type="submit">Save</button>
+  </form>
+</nz-card>

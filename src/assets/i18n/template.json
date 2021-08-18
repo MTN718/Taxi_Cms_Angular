@@ -1,0 +1,14 @@
+{
+	"branding": {
+		"menu": {
+			"header": "branding.menu.header"
+		},
+		"footer": {
+			"address": "branding.footer.address",
+			"title": "branding.footer.title"
+		},
+		"page": {
+			"title": "branding.page.title"
+		}
+	}
+}

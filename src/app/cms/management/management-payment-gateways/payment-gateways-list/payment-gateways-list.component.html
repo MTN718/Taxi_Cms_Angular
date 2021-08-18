@@ -1,0 +1,39 @@
+<div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+      <button nz-button nzType="primary" routerLink="new"><i nz-icon nzType="plus"></i>Add</button>
+    </div>
+          <nz-table
+        #ajaxTable
+        nzShowSizeChanger
+        [nzFrontPagination]="false"
+        [nzData]="listOfData"
+        [nzTotal]="total"
+        [(nzPageIndex)]="pageIndex"
+        [(nzPageSize)]="pageSize"
+        (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)"
+        nzBordered
+      >
+        <thead (nzSortChange)="sort($event)">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ajaxTable.data">
+            <td>{{ data.title }}</td>
+            <td>{{ data.type }}</td>
+            <td><nz-tag [nzColor]="tagColor.boolean(data.enabled)">{{data.enabled ? 'Enabled' : 'Disabled'}}</nz-tag></td>
+            <td>
+              <a [routerLink]="'view/' + data.id">View</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a nz-popconfirm nzPopconfirmTitle="Are you sure?" (nzOnConfirm)="onDelete(data.id)">Delete</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="changeStatus(data.id, false)" *ngIf="data.enabled">Disable</a>
+              <a (click)="changeStatus(data.id, true)" *ngIf="!data.enabled">Enable</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>

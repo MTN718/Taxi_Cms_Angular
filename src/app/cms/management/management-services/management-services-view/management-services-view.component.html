@@ -1,0 +1,18 @@
+<nz-card>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+    <h3>Regions</h3>
+    <nz-transfer [nzTitles]="['All', 'Enabled']" [nzDataSource]="services">
+    </nz-transfer>
+    <h3 style="margin-top: 20px;">Image</h3>
+    <nz-upload [nzAction]="root + 'operator/upload'" [nzHeaders]="{type: 'service'}" (nzChange)="uploaded($event)"
+      nzListType="picture-card" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 1"
+      [nzShowUploadList]="showUploadList">
+      <i nz-icon nzType="plus"></i>
+      <div class="ant-upload-text">Upload</div>
+    </nz-upload>
+    <br>
+    <br>
+    <button nz-button nzType="primary" type="submit">Save</button>
+  </form>
+</nz-card>

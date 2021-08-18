@@ -1,0 +1,52 @@
+<nz-descriptions nzTitle="Request Info" nzBordered style="margin-top: 30px;;">
+    <nz-descriptions-item nzTitle="Expected Time">{{
+    item.expectedTimestamp != null
+      ? (item.expectedTimestamp | date: "short")
+      : "-"
+  }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Start Time">{{
+    item.startTimestamp != null ? (item.startTimestamp | date: "short") : "-"
+  }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Finish Time">{{
+    item.finishTimestamp != null ? (item.finishTimestamp | date: "short") : "-"
+  }}</nz-descriptions-item>
+    
+    <nz-descriptions-item nzTitle="Cost">{{ item.cost }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Cost After Coupon">{{
+    item.costAfterCoupon
+  }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Estimated Cost">{{
+    item.costBest
+  }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Locations" [nzSpan]="3">
+        {{ item.addresses.join(" -> ") }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Status" [nzSpan]="2">
+        <nz-badge [nzStatus]="tagColor.requestBadge(item.status)" [nzText]="item.status"></nz-badge>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="View"><a [routerLink]="'/../requests/view/' + item.id">View</a></nz-descriptions-item>
+</nz-descriptions>
+
+<nz-descriptions nzTitle="Driver Info" nzBordered style="margin-top: 30px;;" *ngIf="item.driver != null">
+    <nz-descriptions-item nzTitle="Full name">{{item.driver.firstName }} {{item.driver.lastName}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Cellphone">{{item.driver.mobileNumber | phone }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Registered at">{{
+    item.driver.registrationTimestamp != null ? (item.driver.registrationTimestamp | date: "short") : "-"
+  }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Status" [nzSpan]="2">
+        <nz-badge [nzColor]="tagColor.driver(item.driver?.status)" [nzText]="item.driver?.status"></nz-badge>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="View"><a [routerLink]="'/../drivers/all/view/' + item.driver?.id">View</a></nz-descriptions-item>
+</nz-descriptions>
+
+<nz-descriptions nzTitle="Rider Info" nzBordered style="margin-top: 30px;;">
+    <nz-descriptions-item nzTitle="Full name">{{item.rider.firstName }} {{item.rider.lastName}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Cellphone">{{item.rider.mobileNumber | phone }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Registered at">{{
+    item.rider.registrationTimestamp != null ? (item.rider.registrationTimestamp | date: "short") : "-"
+  }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Status" [nzSpan]="2">
+        <nz-badge [nzColor]="tagColor.rider(item.rider.status)" [nzText]="item.rider.status"></nz-badge>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="View"><a [routerLink]="'/../riders/view/' + item.rider.id">View</a></nz-descriptions-item>
+</nz-descriptions>

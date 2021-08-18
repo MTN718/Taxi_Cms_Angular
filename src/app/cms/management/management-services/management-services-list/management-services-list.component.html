@@ -1,0 +1,26 @@
+<nz-tabset [nzTabBarExtraContent]="extraTemplate" [(nzSelectedIndex)]="selectedCategory">
+  <nz-tab *ngFor="let cat of listOfData" [nzTitle]="cat.title">
+    <nz-table #ajaxTable [nzFrontPagination]="false" [nzData]="cat.services" nzBordered>
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data">
+          <td>{{ data.title }}</td>
+          <td>
+            <a [routerLink]="'view/' + data.id">View</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-tab>
+</nz-tabset>
+<ng-template #extraTemplate>
+  <button nz-button nzType="danger" *ngIf="listOfData.length > 0" (click)="deleteCategory(listOfData[selectedCategory])">Delete Category</button>
+  <button nz-button style="margin-left: 8px;" *ngIf="listOfData.length > 0" [routerLink]="'category/view/' + listOfData[selectedCategory].id">Edit Category</button>
+  <button nz-button style="margin-left: 8px;" routerLink="category/new/">New Category</button>
+  <button nz-button style="margin-left: 8px;" *ngIf="listOfData.length > 0" [routerLink]="'new'">New Service</button>
+</ng-template>

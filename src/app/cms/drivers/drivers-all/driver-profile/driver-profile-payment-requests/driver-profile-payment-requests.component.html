@@ -1,0 +1,33 @@
+<div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+  <!--<button nz-button nzType="primary"><i nz-icon nzType="plus"></i>Add</button>-->
+</div>
+<nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="listOfData" [nzLoading]="loading"
+  [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)" nzBordered>
+  <thead (nzSortChange)="sort($event)">
+    <tr>
+      <th nzShowSort nzSortKey="requestTimestamp">
+        Request Date & Time
+      </th>
+      <th nzShowSort nzSortKey="paymentTimestamp">
+        Payment Date & Time
+      </th>
+      <th>
+        Status
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{ data.requestTimestamp | date: 'medium' }}</td>
+      <td>{{ data.paymentTimestamp != null ? (data.paymentTimestamp | date: 'medium') : '-' }}</td>
+      <td>
+        <nz-tag [nzColor]="tagColor.paymentRequest(data.status)">{{data.status}}</nz-tag>
+      </td>
+      <td>
+        <a [routerLink]="'../../../payment-requests/view/' + data.id">View</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

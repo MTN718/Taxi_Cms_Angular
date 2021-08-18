@@ -1,0 +1,5 @@
+
+  <div *ngFor="let document of documents">
+    <a href="{{root + document.address}}" target="_blank"><img src="{{root + document.address}}" style="width: 90%; margin: 10px;"></a>
+  </div>
+<nz-empty *ngIf="documents == null" class="empty-state"></nz-empty>

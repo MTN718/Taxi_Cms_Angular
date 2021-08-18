@@ -1,0 +1,62 @@
+<div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+    <button nz-button nzType="primary" routerLink="new"><i nz-icon nzType="plus"></i>Add</button>
+  </div>
+  <nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="listOfData" [nzTotal]="total"
+    [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)" nzBordered>
+    <thead (nzSortChange)="sort($event)">
+      <tr>
+        <th nzCustomFilter>
+          Name
+          <nz-filter-trigger [nzActive]="lastNameSearchValue != null" [nzDropdownMenu]="filtername">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th nzCustomFilter>
+          Mobile Number
+          <nz-filter-trigger [nzActive]="mobileSearchValue != null" [nzDropdownMenu]="filtermobile">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th nzShowSort nzSortKey="rating">Approval Rate</th>
+        <th nzShowSort nzSortKey="status" nzShowFilter [nzFilters]="statuses"
+          (nzFilterChange)="filterStatusChange($event)">Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of ajaxTable.data">
+        <td>{{ data.firstName != null ? data.firstName : '' }} {{ data.lastName != null ? data.lastName : '' }}</td>
+        <td>{{ (data.mobileNumber != null) ? (data.mobileNumber | phone) : '' }}</td>
+        <td>{{ data.rating != null ? data.rating + " %" : "-" }}</td>
+        <td>
+          <nz-tag [nzColor]="tagColor.driver(data.status)">{{'enum.driver.status.' + toCamelCase(data.status) | translate}}</nz-tag>
+        </td>
+        <td>
+          <a [routerLink]="'../view/' + data.id">View</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #filtername="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Last Name" [(ngModel)]="lastNameSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="filterName(lastNameSearchValue)"
+          class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="filterName(null)">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #filtermobile="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search Mobile Number" [(ngModel)]="mobileSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="filterMobile(mobileSearchValue)"
+          class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="filterMobile(null)">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>

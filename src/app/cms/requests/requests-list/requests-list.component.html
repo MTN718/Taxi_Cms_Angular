@@ -1,0 +1,42 @@
+<nz-table #ajaxTable nzShowSizeChanger nzFrontPagination="false" [nzData]="listOfData" [nzTotal]="total"
+  [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)" nzBordered nzServerRender nzShowTotal>
+  <thead (nzSortChange)="sort($event)">
+    <tr>
+      <th nzCustomFilter>
+        Time
+        <nz-filter-trigger [nzActive]="dateRange[0] != null" [nzDropdownMenu]="filterDateRange">
+          <i nz-icon nzType="filter" nzTheme="fill"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>
+        Cost
+      </th>
+      <th nzShowSort nzSortKey="status" nzShowFilter [nzFilters]="statuses"
+        (nzFilterChange)="filterStatusChange($event)">Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{ data.requestTimestamp | date: 'short' }}</td>
+      <td>{{ data.cost | currency: data.currency }}</td>
+      <td>
+        <nz-tag [nzColor]="tagColor.request(data.status)">{{data.status}}</nz-tag>
+      </td>
+      <td>
+        <a [routerLink]="'view/' + data.id">View</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #filterDateRange="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <nz-range-picker [(ngModel)]="dateRange"></nz-range-picker><br>
+      <button nz-button nzSize="small" nzType="primary" (click)="filterDate(dateRange)"
+        class="search-button">Search</button>
+      <button nz-button nzSize="small" (click)="filterDate(null)">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>

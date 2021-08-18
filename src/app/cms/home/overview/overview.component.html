@@ -1,0 +1,82 @@
+
+<!--nz-row [nzGutter]="0">
+  <h1>Hello Artak!</h1>
+</nz-row-->
+<nz-row [nzGutter]="16" nzType="flex" nzJustify="space-around" nzAlign="middle">
+  <nz-col [nzSm]="24" [nzMd]="12" [nzLg]="6" class="stat-card">
+    <nz-card>
+      <nz-statistic [nzValue]="stats.complaints" [nzTitle]="'overview.complaints.title' | translate" [nzPrefix]="prefixTplComplaints"
+        [nzValueStyle]="{ color: colorForCount(stats.complaints) }" [nzSuffix]="'overview.complaints.suffix' | translate">
+      </nz-statistic>
+      <ng-template #prefixTplComplaints><i nz-icon nzType="customer-service"></i></ng-template>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSm]="24" [nzMd]="12" [nzLg]="6" class="stat-card">
+    <nz-card>
+      <nz-statistic [nzValue]="stats.paymentRequests" [nzTitle]="'overview.paymentRequests.title' | translate"
+        [nzPrefix]="prefixTplpaymentRequests" [nzValueStyle]="{ color: colorForCount(stats.paymentRequests) }" [nzSuffix]="'overview.paymentRequests.suffix' | translate">
+      </nz-statistic>
+      <ng-template #prefixTplpaymentRequests><i nz-icon nzType="bank"></i></ng-template>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSm]="24" [nzMd]="12" [nzLg]="6" class="stat-card">
+    <nz-card>
+      <nz-statistic [nzValue]="stats.driversPending" [nzTitle]="'overview.pendingDrivers.title' | translate" [nzPrefix]="prefixTplPendingDrivers"
+        [nzValueStyle]="{ color: colorForCount(stats.driversPending) }" [nzSuffix]="'overview.pendingDrivers.suffix' | translate">
+      </nz-statistic>
+      <ng-template #prefixTplPendingDrivers><i nz-icon nzType="car"></i></ng-template>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSm]="24" [nzMd]="12" [nzLg]="6" class="stat-card">
+    <nz-card>
+      <nz-statistic [nzValue]="stats.availableDrivers" [nzTitle]="'overview.availableDrivers.title' | translate"
+        [nzPrefix]="prefixTplAvailableDrivers" [nzValueStyle]="{ color: colorForCount(stats.driversPending) }" [nzSuffix]="'overview.availableDrivers.suffix' | translate">
+      </nz-statistic>
+      <ng-template #prefixTplAvailableDrivers><i nz-icon nzType="user"></i></ng-template>
+    </nz-card>
+  </nz-col>
+</nz-row>
+<nz-row class="dash-row">
+  <nz-col nzSpan="24">
+    <nz-card [nzTitle]="'overview.driversOnline' | translate" [nzExtra]="extraTemplate" [nzCover]="mapTpl">
+    </nz-card>
+    <ng-template #extraTemplate>
+      <span style="padding-right: 10px;">{{'overview.autoZoom' | translate}}</span>
+      <nz-switch [(ngModel)]="autoZoom" nzCheckedChildren="1" nzUnCheckedChildren="0"></nz-switch>
+    </ng-template>
+    <ng-template #mapTpl>
+      <google-map height="400px" width="100%">
+        <map-marker #marker *ngFor="let markerPosition of drivers" [position]="markerPosition.location"
+          [options]="{ draggable: false }" (mapClick)="openInfoWindow(marker)"
+          [title]="markerPosition.driverId.toString()">{{ markerPosition.driverId }}</map-marker>
+        <map-info-window><a [routerLink]="'../../../drivers/all/view/' + selectedDriverId">{{'overview.viewDriver' | translate}}</a></map-info-window>
+      </google-map>
+    </ng-template>
+  </nz-col>
+</nz-row>
+<div nz-row [nzGutter]="16">
+  <div nz-col nzMd="24" nzLg="12" style="margin-top: 16px;">
+    <nz-card [nzTitle]="'overview.chart.incomeTitle' | translate" [nzExtra]="incomeTmpl">
+      <ngx-chartjs [data]="income" type="bar"></ngx-chartjs>
+    </nz-card>
+    <ng-template #incomeTmpl>
+      <nz-radio-group [(ngModel)]="incomeMode" (ngModelChange)="refreshIncome()">
+        <label nz-radio-button nzValue="day">{{'overview.chart.allDay' | translate}}</label>
+        <label nz-radio-button nzValue="month">{{'overview.chart.allMonth' | translate}}</label>
+        <label nz-radio-button nzValue="year">{{'overview.chart.allYear' | translate}}</label>
+      </nz-radio-group>
+    </ng-template>
+  </div>
+  <div nz-col nzMd="24" nzLg="12" style="margin-top: 16px;">
+    <nz-card [nzTitle]="'overview.chart.requestsTitle' | translate" [nzExtra]="requestExtrasTmpl">
+      <ngx-chartjs [data]="requests" type="bar"></ngx-chartjs>
+    </nz-card>
+    <ng-template #requestExtrasTmpl>
+      <nz-radio-group [(ngModel)]="requestMode" (ngModelChange)="refreshRequests()">
+        <label nz-radio-button nzValue="day">{{'overview.chart.allDay' | translate}}</label>
+        <label nz-radio-button nzValue="month">{{'overview.chart.allMonth' | translate}}</label>
+        <label nz-radio-button nzValue="year">{{'overview.chart.allYear' | translate}}</label>
+      </nz-radio-group>
+    </ng-template>
+  </div>
+</div>

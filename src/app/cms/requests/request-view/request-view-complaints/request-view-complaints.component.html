@@ -1,0 +1,39 @@
+<div>
+  <div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+    <!--<button nz-button nzType="primary"><i nz-icon nzType="plus"></i>Add</button>-->
+  </div>
+      <nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      [nzData]="listOfData"
+      [nzTotal]="total"
+      nzBordered
+    >
+      <thead>
+        <tr>
+          <th>
+            Date & Time
+          </th>
+          <th>
+            Subject
+          </th>
+          <th>
+            Content
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data">
+          <td>{{ data.inscriptionTimestamp | date: "short" }}</td>
+          <td>{{ data.subject }}</td>
+          <td>{{ data.content }}</td>
+          <td>
+            <a [routerLink]="'../../../complaints/view/' + data.id"
+              >View Complaint</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+</div>

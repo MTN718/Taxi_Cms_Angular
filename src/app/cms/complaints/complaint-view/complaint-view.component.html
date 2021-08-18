@@ -1,0 +1,43 @@
+<nz-card>
+  <nz-page-header>
+    <nz-page-header-title>{{item.subject}}</nz-page-header-title>
+    <nz-page-header-tags>
+      <nz-tag [nzColor]="tagColor.boolean(item.isReviewed)">{{item.isReviewed ? 'Reviewed' : 'No Reviewed'}}</nz-tag>
+    </nz-page-header-tags>
+    <nz-page-header-extra>
+      <button nz-button *ngIf="!item.isReviewed" (click)="changeStatus(true)" nzType="primary">
+        Mark As Reviewed
+      </button>
+      <button nz-button *ngIf="item.isReviewed" (click)="changeStatus(false)" nzType="primary">
+        Mark As Needs review
+      </button>
+    </nz-page-header-extra>
+    <nz-page-header-content>
+      <div class="content">
+        <div class="main">
+          <nz-descriptions [nzColumn]="2">
+            <nz-descriptions-item nzTitle="Inscription Time" [nzSpan]="1">{{item.inscriptionTimestamp | date: 'short'}}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Review Time" [nzSpan]="1">
+              {{item.isReviewed ? (item.reviewTimestamp | date: 'short') : '-'}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Content" [nzSpan]="2">{{item.content}}</nz-descriptions-item>
+          </nz-descriptions>
+        </div>
+        <div class="extra">
+          <div>
+            <nz-statistic nzTitle="Inscripted by" [nzValue]="item.requestedBy == 'r' ? 'Rider': 'Driver'"
+              style="margin: 0 32px"></nz-statistic>
+          </div>
+        </div>
+      </div>
+    </nz-page-header-content>
+    <nz-page-header-footer>
+      <nz-tabset nzLinkRouter>
+        <nz-tab>
+          <a nz-tab-link routerLink="info">Details</a>
+          <app-complaint-view-info></app-complaint-view-info>
+        </nz-tab>
+      </nz-tabset>
+    </nz-page-header-footer>
+  </nz-page-header>
+</nz-card>

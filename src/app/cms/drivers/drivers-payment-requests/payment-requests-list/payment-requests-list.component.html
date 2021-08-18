@@ -1,0 +1,33 @@
+<div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+</div>
+<nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="listOfData" [nzTotal]="total"
+  [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)" nzBordered>
+  <thead (nzSortChange)="sort($event)">
+    <tr>
+      <th nzCustomFilter>
+        Request Date
+      </th>
+      <th>
+        Payment Date
+      </th>
+      <th nzShowSort nzSortKey="status" nzShowFilter [nzFilters]="statuses"
+        (nzFilterChange)="filterStatusChange($event)">Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{ data.requestTimestamp | date: 'medium' }}</td>
+      <td>{{ data.paymentTimestamp != null ? (data.paymentTimestamp | date: 'medium') : '-' }}</td>
+      <td>
+        <nz-tag [nzColor]="tagColor.paymentRequest(data.status)">{{data.status}}</nz-tag>
+      </td>
+      <td>
+        <a [routerLink]="'../view/' + data.id">View</a>
+        <nz-divider *ngIf="data.driver != null" nzType="vertical"></nz-divider>
+        <a *ngIf="data.driver != null" [routerLink]="'../../../drivers/all/view/' + data.driver">View Driver</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

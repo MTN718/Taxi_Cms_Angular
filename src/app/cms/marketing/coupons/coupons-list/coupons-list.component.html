@@ -1,0 +1,52 @@
+<div fxLayout="row" fxLayoutGap="4px" class="dt-actionbar">
+  <button nz-button nzType="primary" routerLink="new"><i nz-icon nzType="plus"></i>Add</button>
+</div>
+<nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="listOfData" [nzTotal]="total"
+  [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+  (nzPageSizeChange)="searchData(true)" nzBordered>
+  <thead (nzSortChange)="sort($event)">
+    <tr>
+      <th nzCustomFilter>
+        Title
+        <nz-filter-trigger [nzActive]="titleSearchValue != null" [nzDropdownMenu]="filtername">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Description</th>
+      <th>Code</th>
+      <th>Time</th>
+      <th nzShowSort nzSortKey="isEnabled">Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of ajaxTable.data">
+      <td>{{ data.title }}</td>
+      <td>{{ data.description }}</td>
+      <td>{{ data.code }}</td>
+      <td>{{ data.startTimestamp | date: 'mediumDate'}} - {{data.expirationTimestamp | date: 'mediumDate'}}</td>
+      <td>
+        <nz-tag [nzColor]="tagColor.boolean(data.isEnabled)">{{data.isEnabled ? 'Enabled' : 'Disabled'}}</nz-tag>
+      </td>
+      <td>
+        <a [routerLink]="'../view/' + data.id">View</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="changeStatus(data.id, false)" *ngIf="data.isEnabled">Disable</a>
+        <a (click)="changeStatus(data.id, true)" *ngIf="!data.isEnabled">Enable</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a nz-popconfirm nzPopconfirmTitle="Are you sure?" (nzOnConfirm)="onDelete(data.id)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #filtername="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input type="text" nz-input placeholder="Title" [(ngModel)]="titleSearchValue" />
+      <button nz-button nzSize="small" nzType="primary" (click)="filterName(titleSearchValue)" class="search-button">
+        Search
+      </button>
+      <button nz-button nzSize="small" (click)="filterName(null)">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
